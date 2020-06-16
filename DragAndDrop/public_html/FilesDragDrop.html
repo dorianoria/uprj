@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            #ZonaDestino{
+                float: left;
+                width: 400px;
+                height: 400px;
+                margin: 10px;
+                border: 1px solid blue;
+            }
+        </style>
+        
+        <script>
+            var zona_archivos;
+            // var archivos;
+            
+            function comenzar()
+            {
+               zona_archivos = document.getElementById('ZonaDestino');
+               zona_archivos.style.background = "url(images/cajaCerrada.jpg) no-repeat center center"; 
+               
+             //  zona_archivos.addEventListener("dragenter",function(e){e.preventDefault();},false);
+               zona_archivos.addEventListener("dragenter",cajaAbriendo,false);
+               zona_archivos.addEventListener("dragover",function(e){e.preventDefault();},false);
+               zona_archivos.addEventListener("dragleave",cajaPregunta,false);
+               zona_archivos.addEventListener("drop",recibirArchivos,false);
+			   //zona_archivos.addEventListener("drop",soltarObjeto,false);
+            }
+            
+            function recibirArchivos(e)
+            {
+                e.preventDefault();
+                var datosArchivos = e.dataTransfer.files;
+                // esta propiedad crea un array con los datos de los archivos
+                
+                var listado = "";
+                for(var i=0;i<datosArchivos.length;i++)
+                {
+                    listado += datosArchivos[i].name + " "+(datosArchivos[i].size/1024).toFixed(1) +" "+datosArchivos[i].type+'<br>';
+                }
+                               
+                zona_archivos.innerHTML = listado;
+                zona_archivos.style.background = "url(images/cajaListo.jpg)no-repeat center center";
+            }
+            
+            function cajaAbriendo(e)
+                {
+                    e.preventDefault();
+                    //e.innerHTML = "<img src='Images/cajaAbierta.jpg' id='caja'>";
+                    zona_archivos.style.background = "url(images/cajaAbierta.jpg)no-repeat center center"; 
+                    //zona_archivos.style.background = "rgba(0,0,255,1)";
+                }
+                
+                function cajaPregunta(e)
+                {
+                    e.preventDefault();
+                    //e.innerHTML = "<img src='Images/cajaAbierta.jpg' id='caja'>";
+                    zona_archivos.style.background = "url(images/cajaPregunta.jpg)no-repeat center center"; 
+                    //zona_archivos.style.background = "rgba(0,0,255,1)";
+                }
+				function soltarObjeto(e)
+            {
+               e.preventDefault();
+               elem_destino.innerHTML = e.dataTransfer.getData("Text");
+            }
+                
+            window.addEventListener("load",comenzar,false);
+        </script>
+    </head>
+    <body>
+        
+        <section id="ZonaDestino">
+            Arrastre su documento aquí
+           
+        </section>
+    </body>
+</html>

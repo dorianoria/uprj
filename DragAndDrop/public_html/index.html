@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            #Caja_Imagen{
+                float: left;
+                width: 400px;
+                margin:30px;
+                border: 1px solid crimson;
+            }
+            #Zona_Destino{
+                float: left;
+                width: 600px;
+                height: 500px;
+                margin: 100px;
+                border: 1px solid blue;
+            }
+        </style>    
+        <script>
+            
+            var elem_origen;
+            var elem_destino;
+            
+            function comenzar()
+            {
+                elem_origen = document.getElementById("imagen");
+                elem_origen.addEventListener("dragstart",comenzamosArrastrar,false);
+                elem_destino = document.getElementById("Zona_Destino");
+                elem_destino.addEventListener("dragenter",entrandoZona,false);
+                elem_destino.addEventListener("dragover",function(e){
+                e.preventDefault();},false);
+                elem_destino.addEventListener("drop",soltarObjeto,false);
+                elem_origen.addEventListener("dragend",borrarEnOrigen,false);
+                elem_destino.addEventListener("dragleave",saliendoZona,false);
+            }
+            
+            function comenzamosArrastrar(e)
+            {
+                var codigo = "<img src='" + elem_origen.getAttribute("src")+"'>";
+                e.dataTransfer.setData("Text",codigo);
+            }
+            
+            function soltarObjeto(e)
+            {
+               e.preventDefault();
+               elem_destino.innerHTML = e.dataTransfer.getData("Text");
+            }
+            
+            function borrarEnOrigen(e)
+            {
+                var elemento = e.target;
+                elemento.style.visibility='hidden';
+            }
+            
+            function entrandoZona(e)
+            {
+                e.preventDefault();
+                elem_destino.style.background = "rgba(0,255,0,0.4)";
+            }
+            
+            function saliendoZona(e)
+            {
+                e.preventDefault();
+                elem_destino.style.background = "rgba(255,255,255,1)";
+            }
+            window.addEventListener("load",comenzar,false);
+        </script>    
+        
+    </head>
+    <body>
+        <section id ="Zona_Destino">
+            Arrastre el Elemento Hasta Aqui
+        </section>
+        <section id ="Caja_Imagen">
+            
+             <img src='Images/Strat.jpg' id ='imagen'>   
+             
+        </section>
+    </body>
+</html>

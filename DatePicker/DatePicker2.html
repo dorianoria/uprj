@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Testing Area</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script>
+            function comenzar()
+            {  
+			var d=new Date(); 
+			   //document.getElementById('myDate').valueAsDateTime = d;  
+			   document.getElementById('myDate').innerHTML = d.toUTCString();
+            }
+            window.addEventListener("load",comenzar,false);
+        </script>
+    </head>
+    <body>
+		<h2>Date Field</h2>
+<form>
+		<label for="fecha">Fecha:</label>
+		<input type="datetime-local" id="myDate">
+	</form>
+    </body>
+</html>
